@@ -22,11 +22,11 @@ class ReportGenerator:
             context_id: ID of the context containing scan results
             output_file: Path to the output HTML file
         """
-        # Create a context ID for the report generation process
-        report_id = str(uuid.uuid4())
+        # Create a context ID for the report generation process with proper format
+        report_id = f"ctx-{uuid.uuid4()}"
         
         # Create a report generation context to track progress
-        self.mcp_client.create_context(
+        response = self.mcp_client.create_context(
             model_name="report_generator",
             data={
                 "original_context_id": context_id,
@@ -40,6 +40,9 @@ class ReportGenerator:
                 "type": "report_generation"
             }
         )
+        
+        # Use the context_id returned by the server
+        report_id = response.get("context_id", report_id)
         
         try:
             # Update progress - Fetching data
