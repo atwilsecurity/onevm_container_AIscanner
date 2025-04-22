@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}OneVM - Kubernetes Dashboard{% endblock %}
+
+{% block content %}
+<section class="kubernetes-container">
+    <h1>Kubernetes Dashboard</h1>
+    
+    <div class="intro-text">
+        <p>Scan your Kubernetes clusters for container vulnerabilities. OneVM detects security issues across namespaces, deployments, and pods.</p>
+    </div>
+    
+    <div class="namespaces-container">
+        <h2>Namespaces</h2>
+        
+        {% if namespaces %}
+            <div class="namespaces-list">
+                {% for namespace in namespaces %}
+                    <div class="namespace-card">
+                        <h3>{{ namespace }}</h3>
+                        <a href="{{ url_for('kubernetes_namespace', namespace=namespace) }}" class="btn-view">View Details</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-namespaces">
+                <p>No namespaces found. Make sure your Kubernetes config is correctly set up.</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="kubernetes-tips">
+        <h2>Kubernetes Security Tips</h2>
+        <ul>
+            <li>Use namespace isolation to limit the scope of potential breaches</li>
+            <li>Implement network policies to control pod-to-pod communication</li>
+            <li>Regularly scan container images for vulnerabilities</li>
+            <li>Use RBAC to implement least privilege access</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

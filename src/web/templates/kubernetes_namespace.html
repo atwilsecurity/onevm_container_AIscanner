@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}OneVM - Kubernetes Namespace: {{ namespace }}{% endblock %}
+
+{% block content %}
+<section class="namespace-container">
+    <h1>Namespace: {{ namespace }}</h1>
+    
+    <div class="namespace-actions">
+        <form action="{{ url_for('kubernetes_scan', namespace=namespace) }}" method="post">
+            <button type="submit" class="btn-scan">Scan Namespace</button>
+        </form>
+    </div>
+    
+    <div class="resources-container">
+        <div class="resources-section">
+            <h2>Images ({{ images|length }})</h2>
+            <div class="resources-list">
+                {% for image in images %}
+                    <div class="resource-item">
+                        <p>{{ image }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="resources-section">
+            <h2>Pods ({{ pods|length }})</h2>
+            <div class="resources-list">
+                {% for pod in pods %}
+                    <div class="resource-item">
+                        <h3>{{ pod.name }}</h3>
+                        <p><strong>Status:</strong> {{ pod.status }}</p>
+                        <p><strong>Containers:</strong></p>
+                        <ul>
+                            {% for container in pod.containers %}
+                                <li>{{ container.name }}: {{ container.image }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="resources-section">
+            <h2>Deployments ({{ deployments|length }})</h2>
+            <div class="resources-list">
+                {% for deployment in deployments %}
+                    <div class="resource-item">
+                        <h3>{{ deployment.name }}</h3>
+                        <p><strong>Replicas:</strong> {{ deployment.replicas }}</p>
+                        <p><strong>Containers:</strong></p>
+                        <ul>
+                            {% for container in deployment.containers %}
+                                <li>{{ container.name }}: {{ container.image }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="actions">
+        <a href="{{ url_for('kubernetes_dashboard') }}" class="btn-back">Back to Dashboard</a>
+    </div>
+</section>
+{% endblock %}

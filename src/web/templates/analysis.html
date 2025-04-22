@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}OneVM - Vulnerability Analysis{% endblock %}
+
+{% block content %}
+<section class="analysis-container">
+    <h1>AI Vulnerability Analysis</h1>
+    
+    <div class="scan-info">
+        <p><strong>Image:</strong> {{ analysis.data.image_name }}</p>
+        <p><strong>Analysis Date:</strong> {{ analysis.data.analyzed_at }}</p>
+        {% if original_scan %}
+        <p><a href="{{ url_for('scan_results', context_id=analysis.data.original_context_id) }}">View Original Scan Results</a></p>
+        {% endif %}
+    </div>
+    
+    {% if 'error' in analysis.data %}
+        <div class="error-container">
+            <h2>Analysis Error</h2>
+            <p>{{ analysis.data.error }}</p>
+        </div>
+    {% elif 'raw_analysis' in analysis.data %}
+        <div class="raw-analysis">
+            <h2>Analysis</h2>
+            <pre>{{ analysis.data.raw_analysis }}</pre>
+        </div>
+    {% else %}
+        <div class="summary-section">
+            <h2>Summary</h2>
+            <p>{{ analysis.data.summary }}</p>
+        </div>
+        
+        {% if analysis.data.detailed_analysis %}
+            <div class="detailed-analysis">
+                <h2>Detailed Analysis</h2>
+                {% for item in analysis.data.detailed_analysis %}
+                    <div class="analysis-item">
+                        <h3>{{ item.id }}</h3>
+                        <p><strong>Explanation:</strong> {{ item.explanation }}</p>
+                        <p><strong>Impact:</strong> {{ item.impact }}</p>
+                        <p><strong>Mitigation:</strong> {{ item.mitigation }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if analysis.data.recommendations %}
+            <div class="recommendations">
+                <h2>Recommendations</h2>
+                <ul>
+                    {% for rec in analysis.data.recommendations %}
+                        <li>{{ rec }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        {% if analysis.data.best_practices %}
+            <div class="best-practices">
+                <h2>Best Practices</h2>
+                <ul>
+                    {% for practice in analysis.data.best_practices %}
+                        <li>{{ practice }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+    
+    <div class="actions">
+        <a href="{{ url_for('index') }}" class="btn-back">Scan Another Image</a>
+    </div>
+</section>
+{% endblock %}

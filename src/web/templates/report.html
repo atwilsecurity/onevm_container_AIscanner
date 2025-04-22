@@ -1,0 +1,17 @@
+<!-- src/web/templates/report.html -->
+{% extends "base.html" %}
+
+{% block title %}Vulnerability Report{% endblock %}
+
+{% block content %}
+<section class="report-container">
+    <div class="report-actions">
+        <a href="javascript:window.history.back();" class="btn-back">Back to Results</a>
+        <button onclick="window.print()" class="btn-print">Print Report</button>
+    </div>
+    
+    <div class="report-content">
+        {{ report_content|safe }}
+    </div>
+</section>
+{% endblock %}

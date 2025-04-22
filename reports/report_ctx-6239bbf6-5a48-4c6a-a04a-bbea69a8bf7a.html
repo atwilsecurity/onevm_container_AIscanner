@@ -1,0 +1,289 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Vulnerability Scan Report - ubuntu:latest</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                h1, h2, h3 {
+                    color: #2c3e50;
+                }
+                .report-header {
+                    background-color: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 5px;
+                    margin-bottom: 20px;
+                }
+                .summary-box {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 20px 0;
+                }
+                .summary-item {
+                    padding: 15px;
+                    border-radius: 5px;
+                    text-align: center;
+                    flex: 1;
+                    margin: 0 5px;
+                }
+                .critical {
+                    background-color: #ffdddd;
+                    color: #d63031;
+                }
+                .high {
+                    background-color: #ffeaa7;
+                    color: #fdcb6e;
+                }
+                .medium {
+                    background-color: #81ecec;
+                    color: #00cec9;
+                }
+                .low {
+                    background-color: #dfe6e9;
+                    color: #636e72;
+                }
+                .unknown {
+                    background-color: #b2bec3;
+                    color: #2d3436;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                }
+                th, td {
+                    padding: 12px 15px;
+                    border-bottom: 1px solid #ddd;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f8f9fa;
+                }
+                tr:hover {
+                    background-color: #f5f5f5;
+                }
+                .severity-tag {
+                    display: inline-block;
+                    padding: 3px 8px;
+                    border-radius: 3px;
+                    font-size: 0.8em;
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="report-header">
+                <h1>Vulnerability Scan Report</h1>
+                <p><strong>Image:</strong> ubuntu:latest</p>
+                <p><strong>Scan ID:</strong> 28d44baa-1eee-4244-bdde-f5ab37724f3f</p>
+                <p><strong>Timestamp:</strong> 2025-04-21 13:24:49</p>
+                <p><strong>Total Vulnerabilities:</strong> 17</p>
+            </div>
+            
+            <h2>Vulnerability Summary</h2>
+            <div class="summary-box">
+                <div class="summary-item critical">
+                    <h3>Critical</h3>
+                    <p>0</p>
+                </div>
+                <div class="summary-item high">
+                    <h3>High</h3>
+                    <p>0</p>
+                </div>
+                <div class="summary-item medium">
+                    <h3>Medium</h3>
+                    <p>9</p>
+                </div>
+                <div class="summary-item low">
+                    <h3>Low</h3>
+                    <p>8</p>
+                </div>
+                <div class="summary-item unknown">
+                    <h3>Unknown</h3>
+                    <p>0</p>
+                </div>
+            </div>
+            
+            <h2>Vulnerability Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Severity</th>
+                        <th>Package</th>
+                        <th>Current Version</th>
+                        <th>Fixed Version</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                <tr>
+                    <td>CVE-2024-10041</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam-modules</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10963</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam-modules</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10041</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam-modules-bin</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10963</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam-modules-bin</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10041</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam-runtime</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10963</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam-runtime</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10041</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam0g</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-10963</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>libpam0g</td>
+                    <td>1.5.3-5ubuntu5.1</td>
+                    <td>Not fixed</td>
+                    <td>A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-56406</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>perl-base</td>
+                    <td>5.38.2-3.2build2.1</td>
+                    <td>5.38.2-3.2ubuntu0.1</td>
+                    <td>A heap buffer overflow vulnerability was discovered in Perl. 
+
+Release branches 5.34, 5.36, 5.38 and...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2016-2781</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>coreutils</td>
+                    <td>9.4-3ubuntu6</td>
+                    <td>Not fixed</td>
+                    <td>chroot in GNU coreutils, when used with --userspec, allows local users to escape to the parent sessi...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-3219</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>gpgv</td>
+                    <td>2.4.4-2ubuntu17.2</td>
+                    <td>Not fixed</td>
+                    <td>GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with th...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2016-20013</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>libc-bin</td>
+                    <td>2.39-0ubuntu8.4</td>
+                    <td>Not fixed</td>
+                    <td>sha256crypt and sha512crypt through 0.6 allow attackers to cause a denial of service (CPU consumptio...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2016-20013</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>libc6</td>
+                    <td>2.39-0ubuntu8.4</td>
+                    <td>Not fixed</td>
+                    <td>sha256crypt and sha512crypt through 0.6 allow attackers to cause a denial of service (CPU consumptio...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-2236</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>libgcrypt20</td>
+                    <td>1.10.3-2build1</td>
+                    <td>Not fixed</td>
+                    <td>A timing-based side-channel flaw was found in libgcrypt's RSA implementation. This issue may allow a...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-41996</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>libssl3t64</td>
+                    <td>3.0.13-0ubuntu3.5</td>
+                    <td>Not fixed</td>
+                    <td>Validating the order of the public keys in the Diffie-Hellman Key Agreement Protocol, when an approv...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-56433</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>login</td>
+                    <td>1:4.13+dfsg1-4ubuntu3.2</td>
+                    <td>Not fixed</td>
+                    <td>shadow-utils (aka shadow) 4.4 through 4.17.0 establishes a default /etc/subuid behavior (e.g., uid 1...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-56433</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>passwd</td>
+                    <td>1:4.13+dfsg1-4ubuntu3.2</td>
+                    <td>Not fixed</td>
+                    <td>shadow-utils (aka shadow) 4.4 through 4.17.0 establishes a default /etc/subuid behavior (e.g., uid 1...</td>
+                </tr>
+            
+                </tbody>
+            </table>
+        </body>
+        </html>
+        

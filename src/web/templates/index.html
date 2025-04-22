@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}OneVM - Container Security Scanner{% endblock %}
+
+{% block content %}
+<section class="scan-container">
+    <h1>OneVM AI Container Security Scanner</h1>
+    
+    <div class="intro-text">
+        <p>Scan your container images for vulnerabilities and receive detailed security reports. OneVM helps you identify and address security issues before deployment.</p>
+    </div>
+    
+    <form action="{{ url_for('scan') }}" method="post" class="scan-form">
+        <div class="form-group">
+            <label for="image_name">Image Name:</label>
+            <input type="text" id="image_name" name="image_name" placeholder="e.g., ubuntu:latest, node:14, python:3.9" required>
+        </div>
+        
+        <button type="submit" class="btn-scan">Scan Image</button>
+    </form>
+    
+    <div class="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Comprehensive vulnerability scanning</li>
+            <li>Detailed security reports</li>
+            <li>AI-powered analysis with Claude</li>
+            <li>Container security best practices</li>
+        </ul>
+    </div>
+    
+    <div class="security-tips">
+        <h2>Container Security Tips</h2>
+        <p>Use minimal base images, scan dependencies regularly, and follow the principle of least privilege to keep your containers secure.</p>
+    </div>
+</section>
+{% endblock %}

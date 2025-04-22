@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}OneVM - Scan Results{% endblock %}
+
+{% block content %}
+<section class="results-container">
+    <h1>Scan Results</h1>
+    
+    <div class="scan-info">
+        <p><strong>Image:</strong> {{ scan_result.data.image_name }}</p>
+        <p><strong>Status:</strong> {{ scan_result.data.status }}</p>
+        <p><strong>Context ID:</strong> {{ context_id }}</p>
+    </div>
+    
+    {% if scan_result.data.status == "completed" %}
+        <div class="summary-container">
+            <h2>Vulnerability Summary</h2>
+            <div class="summary-flex">
+                {% for severity, count in scan_result.data.summary.items() %}
+                <div class="summary-item {{ severity.lower() }}">
+                    <h3>{{ severity }}</h3>
+                    <p>{{ count }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        {% if scan_result.data.vulnerabilities %}
+            <div class="vulnerabilities-container">
+                <h2>Top Vulnerabilities</h2>
+                <table class="vulnerabilities-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Severity</th>
+                            <th>Package</th>
+                            <th>Version</th>
+                            <th>Fixed In</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vuln in scan_result.data.vulnerabilities[:10] %}
+                        <tr>
+                            <td>{{ vuln.id }}</td>
+                            <td><span class="severity-tag {{ vuln.severity.lower() }}">{{ vuln.severity }}</span></td>
+                            <td>{{ vuln.package_name }}</td>
+                            <td>{{ vuln.package_version }}</td>
+                            <td>{{ vuln.fixed_version or 'Not fixed' }}</td>
+                            <td>{{ vuln.description[:100] + '...' if vuln.description|length > 100 else vuln.description }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="actions">
+                    <a href="{{ url_for('generate_report', context_id=context_id) }}" class="btn-report">Generate Detailed Report</a>
+                    <a href="{{ url_for('analyze_vulnerabilities', context_id=context_id) }}" class="btn-analyze">Analyze with Claude</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="no-vulnerabilities">
+                <p>No vulnerabilities found in this image!</p>
+            </div>
+        {% endif %}
+    {% elif scan_result.data.status == "error" %}
+        <div class="error-container">
+            <h2>Scan Error</h2>
+            <p>{{ scan_result.data.error }}</p>
+        </div>
+    {% else %}
+        <div class="status-container">
+            <h2>Scan Status: {{ scan_result.data.status }}</h2>
+            <p>Please check back later for results.</p>
+        </div>
+    {% endif %}
+    
+    <div class="actions">
+        <a href="{{ url_for('index') }}" class="btn-back">Scan Another Image</a>
+    </div>
+</section>
+{% endblock %}
