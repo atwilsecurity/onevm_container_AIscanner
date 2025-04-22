@@ -47,7 +47,7 @@
                             <td>{{ vuln.package_name }}</td>
                             <td>{{ vuln.package_version }}</td>
                             <td>{{ vuln.fixed_version or 'Not fixed' }}</td>
-                            <td>{{ vuln.description[:100] + '...' if vuln.description|length > 100 else vuln.description }}</td>
+                            <td>{{ vuln.description }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

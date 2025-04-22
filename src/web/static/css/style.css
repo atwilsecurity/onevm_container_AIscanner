@@ -249,6 +249,7 @@ button {
     width: 100%;
     border-collapse: collapse;
     margin: 1rem 0 2rem;
+    table-layout: fixed;
 }
 
 .vulnerabilities-table th,
@@ -256,12 +257,27 @@ button {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid #dee2e6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .vulnerabilities-table th {
     background-color: #f8f9fa;
     font-weight: 600;
 }
+
+.vulnerabilities-table th:nth-child(1), 
+.vulnerabilities-table td:nth-child(1) { width: 10%; } /* ID */
+.vulnerabilities-table th:nth-child(2), 
+.vulnerabilities-table td:nth-child(2) { width: 8%; } /* Severity */
+.vulnerabilities-table th:nth-child(3), 
+.vulnerabilities-table td:nth-child(3) { width: 12%; } /* Package */
+.vulnerabilities-table th:nth-child(4), 
+.vulnerabilities-table td:nth-child(4) { width: 10%; } /* Version */
+.vulnerabilities-table th:nth-child(5), 
+.vulnerabilities-table td:nth-child(5) { width: 10%; } /* Fixed In */
+.vulnerabilities-table th:nth-child(6), 
+.vulnerabilities-table td:nth-child(6) { width: 50%; } /* Description */
 
 .vulnerabilities-table tr:hover {
     background-color: #f8f9fa;

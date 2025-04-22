@@ -124,10 +124,21 @@ class ReportGenerator:
         Returns:
             HTML content as string
         """
-        image_name = scan_result['data']['image_name']
-        scan_id = scan_result['data']['scan_id']
-        vulnerabilities = scan_result['data']['vulnerabilities']
-        summary = scan_result['data']['summary']
+        # Determine if this is a Kubernetes scan or a single image scan
+        is_kubernetes_scan = 'namespace' in scan_result['data']
+        
+        if is_kubernetes_scan:
+            # For Kubernetes scans
+            image_name = f"Kubernetes namespace: {scan_result['data']['namespace']}"
+            scan_id = scan_result['data']['scan_id']
+            vulnerabilities = scan_result['data']['vulnerabilities']
+            summary = scan_result['data']['summary']
+        else:
+            # For single image scans
+            image_name = scan_result['data']['image_name']
+            scan_id = scan_result['data']['scan_id']
+            vulnerabilities = scan_result['data']['vulnerabilities']
+            summary = scan_result['data']['summary']
         
         # Calculate total vulnerabilities
         total_vulns = sum(summary.values())
@@ -205,15 +216,24 @@ class ReportGenerator:
                     width: 100%;
                     border-collapse: collapse;
                     margin: 20px 0;
+                    table-layout: fixed;
                 }}
                 th, td {{
                     padding: 12px 15px;
                     border-bottom: 1px solid #ddd;
                     text-align: left;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
                 }}
                 th {{
                     background-color: #f8f9fa;
                 }}
+                th:nth-child(1), td:nth-child(1) {{ width: 10%; }} /* ID */
+                th:nth-child(2), td:nth-child(2) {{ width: 8%; }} /* Severity */
+                th:nth-child(3), td:nth-child(3) {{ width: 12%; }} /* Package or Image */
+                th:nth-child(4), td:nth-child(4) {{ width: 10%; }} /* Current Version */
+                th:nth-child(5), td:nth-child(5) {{ width: 10%; }} /* Fixed Version */
+                th:nth-child(6), td:nth-child(6) {{ width: 50%; }} /* Description */
                 tr:hover {{
                     background-color: #f5f5f5;
                 }}
@@ -229,7 +249,11 @@ class ReportGenerator:
         <body>
             <div class="report-header">
                 <h1>Vulnerability Scan Report</h1>
-                <p><strong>Image:</strong> {image_name}</p>
+                {'<p><strong>Namespace:</strong> ' + scan_result['data']['namespace'] + '</p>' if 'namespace' in scan_result['data'] else ''}
+                {'<p><strong>Image:</strong> ' + image_name + '</p>' if not 'namespace' in scan_result['data'] else ''}
+                {'<p><strong>Pod Count:</strong> ' + str(scan_result['data']['pod_count']) + '</p>' if 'pod_count' in scan_result['data'] else ''}
+                {'<p><strong>Deployment Count:</strong> ' + str(scan_result['data']['deployment_count']) + '</p>' if 'deployment_count' in scan_result['data'] else ''}
+                {'<p><strong>Image Count:</strong> ' + str(scan_result['data']['image_count']) + '</p>' if 'image_count' in scan_result['data'] else ''}
                 <p><strong>Scan ID:</strong> {scan_id}</p>
                 <p><strong>Timestamp:</strong> {formatted_time}</p>
                 <p><strong>Total Vulnerabilities:</strong> {total_vulns}</p>
@@ -265,6 +289,7 @@ class ReportGenerator:
                     <tr>
                         <th>ID</th>
                         <th>Severity</th>
+                        {('<th>Image</th>' if 'namespace' in scan_result['data'] else '')}
                         <th>Package</th>
                         <th>Current Version</th>
                         <th>Fixed Version</th>
@@ -290,14 +315,18 @@ class ReportGenerator:
         for vuln in sorted_vulns:
             severity_class = vuln['severity'].lower() if vuln['severity'].lower() in ['critical', 'high', 'medium', 'low'] else 'unknown'
             
+            # Check if this is a Kubernetes scan and if the image info is available in the vuln
+            image_cell = f"<td>{vuln.get('image', 'Unknown')}</td>" if is_kubernetes_scan else ""
+            
             html += f"""
                 <tr>
                     <td>{vuln['id']}</td>
                     <td><span class="severity-tag {severity_class}">{vuln['severity']}</span></td>
+                    {image_cell}
                     <td>{vuln['package_name']}</td>
                     <td>{vuln['package_version']}</td>
                     <td>{vuln['fixed_version'] or 'Not fixed'}</td>
-                    <td>{vuln['description'][:100] + '...' if len(vuln['description']) > 100 else vuln['description']}</td>
+                    <td>{vuln['description']}</td>
                 </tr>
             """
         
