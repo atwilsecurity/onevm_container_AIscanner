@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}OneVM - Kubernetes Scan Results{% endblock %}
+
+{% block content %}
+<section class="results-container">
+    <h1>Kubernetes Scan Results</h1>
+    
+    <div class="scan-info">
+        <p><strong>Namespace:</strong> {{ scan_result.data.namespace }}</p>
+        <p><strong>Status:</strong> {{ scan_result.data.status }}</p>
+        <p><strong>Context ID:</strong> {{ context_id }}</p>
+    </div>
+    
+    {% if scan_result.data.status == "completed" %}
+        <div class="summary-container">
+            <h2>Namespace Summary</h2>
+            <div class="resource-counts">
+                <div class="resource-count-item">
+                    <h3>Pods</h3>
+                    <p>{{ scan_result.data.pod_count }}</p>
+                </div>
+                <div class="resource-count-item">
+                    <h3>Deployments</h3>
+                    <p>{{ scan_result.data.deployment_count }}</p>
+                </div>
+                <div class="resource-count-item">
+                    <h3>Images</h3>
+                    <p>{{ scan_result.data.image_count }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="summary-container">
+            <h2>Vulnerability Summary</h2>
+            <div class="summary-flex">
+                {% for severity, count in scan_result.data.summary.items() %}
+                <div class="summary-item {{ severity.lower() }}">
+                    <h3>{{ severity }}</h3>
+                    <p>{{ count }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="images-container">
+            <h2>Images Scanned</h2>
+            <div class="images-list">
+                {% for image, result in scan_result.data.scan_results.items() %}
+                <div class="image-card">
+                    <h3>{{ image }}</h3>
+                    <p><strong>Status:</strong> {{ result.status }}</p>
+                    {% if result.status == "completed" %}
+                        <p><strong>Vulnerabilities:</strong> {{ result.vulnerabilities }}</p>
+                        <div class="image-summary">
+                            {% for severity, count in result.summary.items() %}
+                                {% if count > 0 %}
+                                <span class="severity-badge {{ severity.lower() }}">{{ severity }}: {{ count }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <a href="{{ url_for('scan_results', context_id=result.context_id) }}" class="btn-view">View Details</a>
+                    {% elif result.status == "error" %}
+                        <p class="error-text">{{ result.error }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="actions">
+            <a href="{{ url_for('generate_report', context_id=context_id) }}" class="btn-report">Generate Detailed Report</a>
+        </div>
+        
+    {% elif scan_result.data.status == "error" %}
+        <div class="error-container">
+            <h2>Scan Error</h2>
+            <p>{{ scan_result.data.error }}</p>
+        </div>
+    {% elif scan_result.data.status == "scanning" %}
+        <div class="progress-container">
+            <h2>Scan In Progress</h2>
+            <p>{{ scan_result.data.progress_message }}</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: {{ scan_result.data.progress }}%;"></div>
+            </div>
+            <p class="progress-percentage">{{ scan_result.data.progress }}% Complete</p>
+            <script>
+                // Auto-refresh the page every 3 seconds
+                setTimeout(function() {
+                    location.reload();
+                }, 3000);
+            </script>
+        </div>
+    {% else %}
+        <div class="status-container">
+            <h2>Scan Status: {{ scan_result.data.status }}</h2>
+            <p>Please check back later for results.</p>
+        </div>
+    {% endif %}
+    
+    <div class="actions">
+        <a href="{{ url_for('kubernetes_namespace', namespace=scan_result.data.namespace) }}" class="btn-back">Back to Namespace</a>
+    </div>
+</section>
+{% endblock %}

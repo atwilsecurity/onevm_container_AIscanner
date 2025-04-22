@@ -7,7 +7,7 @@ from datetime import datetime
 from src.mcp.client import MCPClient
 
 class ClaudeAnalyzer:
-    def __init__(self, api_key=None, mcp_url: str = "http://localhost:8000"):
+    def __init__(self, api_key=None, mcp_url: str = "http://localhost:8000", mcp_api_key=None):
         # Get API key from environment variable if not provided
         self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         if not self.api_key:
@@ -15,7 +15,10 @@ class ClaudeAnalyzer:
         
         # Initialize Claude client
         self.client = anthropic.Anthropic(api_key=self.api_key)
-        self.mcp_client = MCPClient(mcp_url)
+        
+        # Use MCP API key from parameter, environment, or test key
+        mcp_api_key = mcp_api_key or os.environ.get("MCP_API_KEY", "test_development_key")
+        self.mcp_client = MCPClient(mcp_url, api_key=mcp_api_key)
     
     def analyze_vulnerabilities(self, context_id: str) -> str:
         """

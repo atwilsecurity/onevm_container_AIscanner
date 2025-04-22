@@ -10,8 +10,30 @@
         <button onclick="window.print()" class="btn-print">Print Report</button>
     </div>
     
-    <div class="report-content">
-        {{ report_content|safe }}
-    </div>
+    {% if report_status == "generating" %}
+        <div class="progress-container">
+            <h2>Report Generation In Progress</h2>
+            <p>{{ report_message }}</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: {{ report_progress }}%;"></div>
+            </div>
+            <p class="progress-percentage">{{ report_progress }}% Complete</p>
+            <script>
+                // Auto-refresh the page every 3 seconds
+                setTimeout(function() {
+                    location.reload();
+                }, 3000);
+            </script>
+        </div>
+    {% elif report_status == "error" %}
+        <div class="error-container">
+            <h2>Report Generation Error</h2>
+            <p>{{ report_message }}</p>
+        </div>
+    {% else %}
+        <div class="report-content">
+            {{ report_content|safe }}
+        </div>
+    {% endif %}
 </section>
 {% endblock %}

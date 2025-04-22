@@ -1,14 +1,18 @@
 # src/scanner/report_generator.py
 import json
 import os
+import uuid
 from typing import Dict, Any, List
 from datetime import datetime
+from tqdm import tqdm
 
 from src.mcp.client import MCPClient
 
 class ReportGenerator:
-    def __init__(self, mcp_url: str = "http://localhost:8000"):
-        self.mcp_client = MCPClient(mcp_url)
+    def __init__(self, mcp_url: str = "http://localhost:8000", api_key: str = None):
+        # Use provided API key or try to get from environment, or use a test key for development
+        api_key = api_key or os.environ.get("MCP_API_KEY", "test_development_key")
+        self.mcp_client = MCPClient(mcp_url, api_key=api_key)
     
     def generate_html_report(self, context_id: str, output_file: str) -> None:
         """
@@ -18,20 +22,94 @@ class ReportGenerator:
             context_id: ID of the context containing scan results
             output_file: Path to the output HTML file
         """
-        # Get the scan results from MCP
-        scan_result = self.mcp_client.get_context(context_id)
+        # Create a context ID for the report generation process
+        report_id = str(uuid.uuid4())
         
-        if scan_result['data']['status'] != "completed":
-            raise ValueError(f"Cannot generate report: scan status is {scan_result['data']['status']}")
+        # Create a report generation context to track progress
+        self.mcp_client.create_context(
+            model_name="report_generator",
+            data={
+                "original_context_id": context_id,
+                "report_id": report_id,
+                "status": "started",
+                "progress": 0,
+                "progress_message": "Starting report generation..."
+            },
+            metadata={
+                "timestamp": datetime.now().isoformat(),
+                "type": "report_generation"
+            }
+        )
         
-        # Generate HTML
-        html = self._generate_html(scan_result)
-        
-        # Write to file
-        with open(output_file, 'w') as f:
-            f.write(html)
-        
-        print(f"Report generated: {output_file}")
+        try:
+            # Update progress - Fetching data
+            self._update_progress(report_id, context_id, 10, "Fetching scan data...")
+            
+            # Get the scan results from MCP
+            scan_result = self.mcp_client.get_context(context_id)
+            
+            if scan_result['data']['status'] != "completed":
+                self._update_progress(report_id, context_id, 0, 
+                                     f"Error: Cannot generate report - scan status is {scan_result['data']['status']}")
+                raise ValueError(f"Cannot generate report: scan status is {scan_result['data']['status']}")
+            
+            # Update progress - Generating HTML
+            self._update_progress(report_id, context_id, 30, "Processing vulnerability data...")
+            
+            # Generate HTML
+            with tqdm(total=100, desc="Generating Report") as pbar:
+                pbar.update(30)
+                
+                # Process data
+                total_vulns = 0
+                if "vulnerabilities" in scan_result['data']:
+                    total_vulns = len(scan_result['data']['vulnerabilities'])
+                
+                self._update_progress(report_id, context_id, 50, 
+                                    f"Processing {total_vulns} vulnerabilities...")
+                pbar.update(20)
+                
+                # Generate HTML content
+                html = self._generate_html(scan_result)
+                
+                self._update_progress(report_id, context_id, 80, "Finalizing report...")
+                pbar.update(30)
+                
+                # Write to file
+                with open(output_file, 'w') as f:
+                    f.write(html)
+                
+                self._update_progress(report_id, context_id, 100, "Report generated successfully")
+                pbar.update(20)
+            
+            print(f"Report generated: {output_file}")
+            
+        except Exception as e:
+            # Update progress with error
+            self._update_progress(report_id, context_id, 0, f"Error generating report: {str(e)}")
+            raise
+            
+    def _update_progress(self, report_id, context_id, progress, message):
+        """Update the progress of report generation in the MCP context"""
+        try:
+            self.mcp_client.update_context(
+                context_id=report_id,
+                model_name="report_generator",
+                data={
+                    "original_context_id": context_id,
+                    "report_id": report_id,
+                    "status": "generating" if progress < 100 else "completed",
+                    "progress": progress,
+                    "progress_message": message
+                },
+                metadata={
+                    "timestamp": datetime.now().isoformat(),
+                    "type": "report_generation"
+                }
+            )
+        except Exception as e:
+            # Don't let progress updates cause the report generation to fail
+            print(f"Error updating report progress: {str(e)}")
     
     def _generate_html(self, scan_result: Dict[str, Any]) -> str:
         """

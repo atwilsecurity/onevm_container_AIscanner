@@ -49,7 +49,7 @@ def scan_container(container_id: str):
     # Update context with findings
     client.update_context(
         context_id=context_id,
-        model_name="vulnerability_analyzer",
+        model_name="container_scanner",
         data={
             "container_id": container_id,
             "scan_status": "completed",

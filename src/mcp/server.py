@@ -43,6 +43,20 @@ async def create_context(context: Context):
     logger.info(f"Created context {context.context_id} for model {context.model_name}")
     return {"status": "created", "context_id": context.context_id}
 
+@app.get("/context")
+async def list_contexts(model: str = None):
+    contexts = []
+    for context_id, context_data in context_store.items():
+        # Filter by model if specified
+        if model and context_data["model_name"] != model:
+            continue
+            
+        contexts.append({
+            "context_id": context_id,
+            **context_data
+        })
+    return {"contexts": contexts}
+
 @app.get("/context/{context_id}")
 async def get_context(context_id: str):
     if context_id not in context_store:

@@ -1,60 +1,196 @@
-# src/mcp/client.py
-import json
+import os
+from typing import List, Dict, Optional, Any
 import requests
-from typing import Dict, Any, Optional
 
 class MCPClient:
-    """Client for interacting with the Model Context Protocol server"""
-    
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(self, base_url: str, api_key: Optional[str] = None):
+        """
+        Initialize the MCP client.
+        
+        Args:
+            base_url: The base URL for the MCP API.
+            api_key: The API key for authentication. If not provided, 
+                    it will be read from the MCP_API_KEY environment variable.
+        """
         self.base_url = base_url
+        self.api_key = api_key or os.environ.get("MCP_API_KEY")
+        if not self.api_key:
+            raise ValueError("API key must be provided either directly or via MCP_API_KEY environment variable")
+        
+        self.headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
     
-    def create_context(self, model_name: str, data: Dict[str, Any], 
-                      context_id: Optional[str] = None,
-                      metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Create a new context in the MCP server"""
+    def get_model(self, model_name: str) -> Dict[str, Any]:
+        """
+        Get information about a specific model.
+        
+        Args:
+            model_name: The name of the model to retrieve.
+            
+        Returns:
+            Dictionary containing model information.
+        """
+        response = requests.get(
+            f"{self.base_url}/models/{model_name}",
+            headers=self.headers
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def list_models(self) -> List[Dict[str, Any]]:
+        """
+        List all available models.
+        
+        Returns:
+            List of dictionaries containing model information.
+        """
+        response = requests.get(
+            f"{self.base_url}/models",
+            headers=self.headers
+        )
+        response.raise_for_status()
+        return response.json().get("models", [])
+    
+    def list_contexts(self, model_name: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        List available contexts, optionally filtered by model name.
+        
+        Args:
+            model_name: Optional. Filter contexts by model name.
+            
+        Returns:
+            List of dictionaries containing context information.
+        """
+        url = f"{self.base_url}/context"
+        if model_name:
+            url += f"?model={model_name}"
+        
+        response = requests.get(
+            url,
+            headers=self.headers
+        )
+        response.raise_for_status()
+        return response.json().get("contexts", [])
+    
+    def create_context(self, model_name: str, data: Dict[str, Any] = None, metadata: Dict[str, Any] = None, name: str = None, document_text: str = None) -> Dict[str, Any]:
+        """
+        Create a new context.
+        
+        Args:
+            model_name: The model to use for this context.
+            data: The data object to associate with this context.
+            metadata: Metadata to attach to the context.
+            name: Optional name for the context.
+            document_text: Optional document text to analyze.
+            
+        Returns:
+            Dictionary containing the created context information.
+        """
         payload = {
-            "model_name": model_name,
-            "data": data,
-            "metadata": metadata or {}
+            "model_name": model_name
         }
         
-        if context_id:
-            payload["context_id"] = context_id
-        
-        response = requests.post(f"{self.base_url}/context", json=payload)
-        if response.status_code != 200:
-            raise Exception(f"Failed to create context: {response.text}")
-        
+        if name:
+            payload["name"] = name
+            
+        if document_text:
+            payload["document_text"] = document_text
+            
+        if data:
+            payload["data"] = data
+            
+        if metadata:
+            payload["metadata"] = metadata
+            
+        response = requests.post(
+            f"{self.base_url}/context",
+            headers=self.headers,
+            json=payload
+        )
+        response.raise_for_status()
         return response.json()
+    
+    def delete_context(self, context_id: str) -> None:
+        """
+        Delete a context.
+        
+        Args:
+            context_id: The ID of the context to delete.
+        """
+        response = requests.delete(
+            f"{self.base_url}/context/{context_id}",
+            headers=self.headers
+        )
+        response.raise_for_status()
     
     def get_context(self, context_id: str) -> Dict[str, Any]:
-        """Retrieve a context from the MCP server"""
-        response = requests.get(f"{self.base_url}/context/{context_id}")
-        if response.status_code != 200:
-            raise Exception(f"Failed to get context: {response.text}")
+        """
+        Get a context by ID.
         
+        Args:
+            context_id: The ID of the context to retrieve.
+            
+        Returns:
+            Dictionary containing context information.
+        """
+        response = requests.get(
+            f"{self.base_url}/context/{context_id}",
+            headers=self.headers
+        )
+        response.raise_for_status()
         return response.json()
     
-    def update_context(self, context_id: str, model_name: str, data: Dict[str, Any],
-                      metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Update an existing context in the MCP server"""
+    def update_context(self, context_id: str, model_name: str, data: Dict[str, Any] = None, metadata: Dict[str, Any] = None) -> Dict[str, Any]:
+        """
+        Update an existing context.
+        
+        Args:
+            context_id: The ID of the context to update.
+            model_name: The model to use for this context.
+            data: The data object to associate with this context.
+            metadata: Metadata to attach to the context.
+            
+        Returns:
+            Dictionary containing the updated context information.
+        """
         payload = {
-            "model_name": model_name,
-            "data": data,
-            "metadata": metadata or {}
+            "model_name": model_name
         }
         
-        response = requests.put(f"{self.base_url}/context/{context_id}", json=payload)
-        if response.status_code != 200:
-            raise Exception(f"Failed to update context: {response.text}")
-        
+        if data:
+            payload["data"] = data
+            
+        if metadata:
+            payload["metadata"] = metadata
+            
+        response = requests.put(
+            f"{self.base_url}/context/{context_id}",
+            headers=self.headers,
+            json=payload
+        )
+        response.raise_for_status()
         return response.json()
-    
-    def delete_context(self, context_id: str) -> Dict[str, Any]:
-        """Delete a context from the MCP server"""
-        response = requests.delete(f"{self.base_url}/context/{context_id}")
-        if response.status_code != 200:
-            raise Exception(f"Failed to delete context: {response.text}")
         
+    def scan_vulnerabilities(self, context_id: str, query: str) -> Dict[str, Any]:
+        """
+        Scan for vulnerabilities using the specified context.
+        
+        Args:
+            context_id: The ID of the context to use.
+            query: The query to analyze for vulnerabilities.
+            
+        Returns:
+            Dictionary containing vulnerability scan results.
+        """
+        payload = {
+            "query": query
+        }
+        response = requests.post(
+            f"{self.base_url}/context/{context_id}/scan",
+            headers=self.headers,
+            json=payload
+        )
+        response.raise_for_status()
         return response.json()

@@ -18,15 +18,22 @@ app.secret_key = 'your-secret-key'  # Required for flash messages
 app.config['APP_NAME'] = 'OneVM'
 
 # Initialize our clients
-scanner = VulnerabilityScanner()
-report_generator = ReportGenerator()
-mcp_client = MCPClient()
+# Use test_development_key for development/testing purposes
+api_key = os.environ.get("MCP_API_KEY", "test_development_key")
+scanner = VulnerabilityScanner(mcp_url=os.environ.get("MCP_BASE_URL", "http://localhost:8000"), api_key=api_key)
+report_generator = ReportGenerator(mcp_url=os.environ.get("MCP_BASE_URL", "http://localhost:8000"), api_key=api_key)
+mcp_client = MCPClient(base_url=os.environ.get("MCP_BASE_URL", "http://localhost:8000"), api_key=api_key)
 
 # Initialize Claude Analyzer (you'll need to set ANTHROPIC_API_KEY env variable)
 try:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if api_key:
-        claude_analyzer = ClaudeAnalyzer(api_key=api_key)
+    anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if anthropic_api_key:
+        # Pass both API keys
+        claude_analyzer = ClaudeAnalyzer(
+            api_key=anthropic_api_key,
+            mcp_url=os.environ.get("MCP_BASE_URL", "http://localhost:8000"),
+            mcp_api_key=api_key  # MCP API key from earlier
+        )
         claude_available = True
     else:
         print("Claude Analyzer not available: No API key provided")
@@ -38,7 +45,10 @@ except Exception as e:
 # Initialize Kubernetes client and scanner
 try:
     k8s_client = KubernetesClient()
-    k8s_scanner = KubernetesScanner() if k8s_client.connected else None
+    k8s_scanner = KubernetesScanner(
+        mcp_url=os.environ.get("MCP_BASE_URL", "http://localhost:8000"),
+        api_key=api_key
+    ) if k8s_client.connected else None
     k8s_available = k8s_client.connected
     if not k8s_available:
         print("Kubernetes is not available: Not connected to a cluster")
@@ -107,14 +117,55 @@ def generate_report(context_id):
         # Ensure reports directory exists
         os.makedirs(os.path.dirname(report_path), exist_ok=True)
         
-        # Generate the report
-        report_generator.generate_html_report(context_id, report_path)
+        # Check if we have an existing report generation process
+        report_id = request.args.get('report_id')
         
-        # Read the report content
-        with open(report_path, 'r') as f:
-            report_content = f.read()
+        if not report_id:
+            # Start a new report generation process in a separate thread
+            import threading
+            
+            def generate_report_task():
+                try:
+                    report_generator.generate_html_report(context_id, report_path)
+                except Exception as e:
+                    app.logger.error(f"Error in report generation thread: {str(e)}")
+            
+            # Start the report generation in a background thread
+            thread = threading.Thread(target=generate_report_task)
+            thread.daemon = True
+            thread.start()
+            
+            # Get the latest report generation context
+            latest_reports = mcp_client.list_contexts(model_name="report_generator")
+            for report in latest_reports:
+                if report['data'].get('original_context_id') == context_id:
+                    report_id = report['context_id']
+                    break
+            
+            # If we couldn't find a report ID, redirect to results page with error
+            if not report_id:
+                flash("Could not track report generation progress", "error")
+                return redirect(url_for('scan_results', context_id=context_id))
         
-        return render_template('report.html', report_content=report_content)
+        # Get the report generation status
+        report_status = mcp_client.get_context(report_id)
+        
+        # Check if the report is completed and exists
+        if report_status['data']['status'] == "completed" and os.path.exists(report_path):
+            # Read the report content
+            with open(report_path, 'r') as f:
+                report_content = f.read()
+            
+            return render_template('report.html', 
+                                report_content=report_content,
+                                report_status="completed")
+        else:
+            # Still generating, show progress
+            return render_template('report.html',
+                                report_status=report_status['data']['status'],
+                                report_progress=report_status['data']['progress'],
+                                report_message=report_status['data']['progress_message'],
+                                report_id=report_id)
     
     except Exception as e:
         flash(f'Error generating report: {str(e)}', 'error')
@@ -240,4 +291,4 @@ def list_contexts():
     return jsonify({"error": "Not implemented yet"})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)

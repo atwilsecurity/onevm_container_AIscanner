@@ -1,0 +1,1025 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Vulnerability Scan Report - gcr.io/k8s-minikube/storage-provisioner:v5</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                h1, h2, h3 {
+                    color: #2c3e50;
+                }
+                .report-header {
+                    background-color: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 5px;
+                    margin-bottom: 20px;
+                }
+                .summary-box {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 20px 0;
+                }
+                .summary-item {
+                    padding: 15px;
+                    border-radius: 5px;
+                    text-align: center;
+                    flex: 1;
+                    margin: 0 5px;
+                }
+                .critical {
+                    background-color: #ffdddd;
+                    color: #d63031;
+                }
+                .high {
+                    background-color: #ffeaa7;
+                    color: #fdcb6e;
+                }
+                .medium {
+                    background-color: #81ecec;
+                    color: #00cec9;
+                }
+                .low {
+                    background-color: #dfe6e9;
+                    color: #636e72;
+                }
+                .unknown {
+                    background-color: #b2bec3;
+                    color: #2d3436;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                }
+                th, td {
+                    padding: 12px 15px;
+                    border-bottom: 1px solid #ddd;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f8f9fa;
+                }
+                tr:hover {
+                    background-color: #f5f5f5;
+                }
+                .severity-tag {
+                    display: inline-block;
+                    padding: 3px 8px;
+                    border-radius: 3px;
+                    font-size: 0.8em;
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="report-header">
+                <h1>Vulnerability Scan Report</h1>
+                <p><strong>Image:</strong> gcr.io/k8s-minikube/storage-provisioner:v5</p>
+                <p><strong>Scan ID:</strong> eb272d76-7634-4d8b-8b29-de22a1c58339</p>
+                <p><strong>Timestamp:</strong> 2025-04-21 22:58:29</p>
+                <p><strong>Total Vulnerabilities:</strong> 99</p>
+            </div>
+            
+            <h2>Vulnerability Summary</h2>
+            <div class="summary-box">
+                <div class="summary-item critical">
+                    <h3>Critical</h3>
+                    <p>5</p>
+                </div>
+                <div class="summary-item high">
+                    <h3>High</h3>
+                    <p>53</p>
+                </div>
+                <div class="summary-item medium">
+                    <h3>Medium</h3>
+                    <p>40</p>
+                </div>
+                <div class="summary-item low">
+                    <h3>Low</h3>
+                    <p>1</p>
+                </div>
+                <div class="summary-item unknown">
+                    <h3>Unknown</h3>
+                    <p>0</p>
+                </div>
+            </div>
+            
+            <h2>Vulnerability Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Severity</th>
+                        <th>Package</th>
+                        <th>Current Version</th>
+                        <th>Fixed Version</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                <tr>
+                    <td>CVE-2024-45337</td>
+                    <td><span class="severity-tag critical">CRITICAL</span></td>
+                    <td>golang.org/x/crypto</td>
+                    <td>v0.0.0-20201002170205-7f63de1d35b0</td>
+                    <td>0.31.0</td>
+                    <td>Applications and libraries which misuse connection.serverAuthenticate (via callback field ServerConf...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-23806</td>
+                    <td><span class="severity-tag critical">CRITICAL</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.14, 1.17.7</td>
+                    <td>Curve.IsOnCurve in crypto/elliptic in Go before 1.16.14 and 1.17.x before 1.17.7 can incorrectly ret...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24538</td>
+                    <td><span class="severity-tag critical">CRITICAL</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.8, 1.20.3</td>
+                    <td>Templates do not properly consider backticks (`) as Javascript string delimiters, and do not escape ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24540</td>
+                    <td><span class="severity-tag critical">CRITICAL</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.9, 1.20.4</td>
+                    <td>Not all valid JavaScript whitespace characters are considered to be whitespace. Templates containing...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24790</td>
+                    <td><span class="severity-tag critical">CRITICAL</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.11, 1.22.4</td>
+                    <td>The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 ad...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-21698</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>github.com/prometheus/client_golang</td>
+                    <td>v1.7.1</td>
+                    <td>1.11.1</td>
+                    <td>client_golang is the instrumentation library for Go applications in Prometheus, and the promhttp pac...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2020-29652</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/crypto</td>
+                    <td>v0.0.0-20201002170205-7f63de1d35b0</td>
+                    <td>0.0.0-20201216223049-8b5274cf687f</td>
+                    <td>A nil pointer dereference in the golang.org/x/crypto/ssh component through v0.0.0-20201203163018-be4...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-43565</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/crypto</td>
+                    <td>v0.0.0-20201002170205-7f63de1d35b0</td>
+                    <td>0.0.0-20211202192323-5770296d904e</td>
+                    <td>The x/crypto/ssh package before 0.0.0-20211202192323-5770296d904e of golang.org/x/crypto allows an a...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-27191</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/crypto</td>
+                    <td>v0.0.0-20201002170205-7f63de1d35b0</td>
+                    <td>0.0.0-20220314234659-1baeb1ce4c0b</td>
+                    <td>The golang.org/x/crypto/ssh package before 0.0.0-20220314234659-1baeb1ce4c0b for Go allows an attack...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2025-22869</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/crypto</td>
+                    <td>v0.0.0-20201002170205-7f63de1d35b0</td>
+                    <td>0.35.0</td>
+                    <td>SSH servers which implement file transfer protocols are vulnerable to a denial of service attack fro...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-33194</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.0.0-20210520170846-37e1c6afe023</td>
+                    <td>golang.org/x/net before v0.0.0-20210520170846-37e1c6afe023 allows attackers to cause a denial of ser...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-27664</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.0.0-20220906165146-f3363e06e74c</td>
+                    <td>In net/http in Go before 1.18.6 and 1.19.x before 1.19.1, attackers can cause a denial of service be...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41723</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.7.0</td>
+                    <td>A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, suff...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-39325</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.17.0</td>
+                    <td>A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause exces...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-38561</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/text</td>
+                    <td>v0.3.5</td>
+                    <td>0.3.7</td>
+                    <td>golang.org/x/text/language in golang.org/x/text before 0.3.7 can panic with an out-of-bounds read du...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-32149</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>golang.org/x/text</td>
+                    <td>v0.3.5</td>
+                    <td>0.3.8</td>
+                    <td>An attacker may cause a denial of service by crafting an Accept-Language header which ParseAcceptLan...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-33195</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.13, 1.16.5</td>
+                    <td>Go before 1.15.13 and 1.16.x before 1.16.5 has functions for DNS lookups that do not validate replie...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-33196</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.13, 1.16.5</td>
+                    <td>In archive/zip in Go before 1.15.13 and 1.16.x before 1.16.5, a crafted file count (in an archive's ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-33198</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.13, 1.16.5</td>
+                    <td>In Go before 1.15.13 and 1.16.x before 1.16.5, there can be a panic for a large exponent to the math...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-39293</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.8, 1.17.1</td>
+                    <td>In archive/zip in Go before 1.16.8 and 1.17.x before 1.17.1, a crafted archive header (falsely desig...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-41771</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.10, 1.17.3</td>
+                    <td>ImportedSymbols in debug/macho (for Open or OpenFat) in Go before 1.16.10 and 1.17.x before 1.17.3 A...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-41772</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.10, 1.17.3</td>
+                    <td>Go before 1.16.10 and 1.17.x before 1.17.3 allows an archive/zip Reader.Open panic via a crafted ZIP...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-44716</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.12, 1.17.5</td>
+                    <td>net/http in Go before 1.16.12 and 1.17.x before 1.17.5 allows uncontrolled memory consumption in the...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-23772</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.14, 1.17.7</td>
+                    <td>Rat.SetString in math/big in Go before 1.16.14 and 1.17.x before 1.17.7 has an overflow that can lea...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-24675</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.9, 1.18.1</td>
+                    <td>encoding/pem in Go before 1.17.9 and 1.18.x before 1.18.1 has a Decode stack overflow via a large am...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-24921</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.15, 1.17.8</td>
+                    <td>regexp.Compile in Go before 1.16.15 and 1.17.x before 1.17.8 allows stack exhaustion via a deeply ne...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-27664</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.6, 1.19.1</td>
+                    <td>In net/http in Go before 1.18.6 and 1.19.x before 1.19.1, attackers can cause a denial of service be...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-28131</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in Decoder.Skip in encoding/xml before Go 1.17.12 and Go 1.18.4 allows an att...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-28327</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.9, 1.18.1</td>
+                    <td>The generic P-256 feature in crypto/elliptic in Go before 1.17.9 and 1.18.x before 1.18.1 allows a p...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-2879</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.7, 1.19.2</td>
+                    <td>Reader.Read does not set a limit on the maximum size of file headers. A maliciously crafted archive ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-2880</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.7, 1.19.2</td>
+                    <td>Requests forwarded by ReverseProxy include the raw query parameters from the inbound request, includ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-29804</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.11, 1.18.3</td>
+                    <td>Incorrect conversion of certain invalid paths to valid, absolute paths in Clean in path/filepath bef...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30580</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.11, 1.18.3</td>
+                    <td>Code injection in Cmd.Start in os/exec before Go 1.17.11 and Go 1.18.3 allows execution of any binar...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30630</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in Glob in io/fs before Go 1.17.12 and Go 1.18.4 allows an attacker to cause ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30631</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in Reader.Read in compress/gzip before Go 1.17.12 and Go 1.18.4 allows an att...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30632</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in Glob in path/filepath before Go 1.17.12 and Go 1.18.4 allows an attacker t...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30633</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in Unmarshal in encoding/xml before Go 1.17.12 and Go 1.18.4 allows an attack...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30634</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.11, 1.18.3</td>
+                    <td>Infinite loop in Read in crypto/rand before Go 1.17.11 and Go 1.18.3 on Windows allows attacker to c...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30635</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in Decoder.Decode in encoding/gob before Go 1.17.12 and Go 1.18.4 allows an a...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-32189</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.13, 1.18.5</td>
+                    <td>A too-short encoded message can cause a panic in Float.GobDecode and Rat GobDecode in math/big in Go...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41715</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.7, 1.19.2</td>
+                    <td>Programs which compile regular expressions from untrusted sources may be vulnerable to memory exhaus...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41716</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.8, 1.19.3</td>
+                    <td>Due to unsanitized NUL values, attackers may be able to maliciously set environment variables on Win...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41720</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.9, 1.19.4</td>
+                    <td>On Windows, restricted files can be accessed via os.DirFS and http.Dir. The os.DirFS function and ht...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41722</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.6, 1.20.1</td>
+                    <td>A path traversal vulnerability exists in filepath.Clean on Windows. On Windows, the filepath.Clean f...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41723</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.6, 1.20.1</td>
+                    <td>A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, suff...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41724</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.6, 1.20.1</td>
+                    <td>Large handshake records may cause panics in crypto/tls. Both clients and servers may send large TLS ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41725</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.6, 1.20.1</td>
+                    <td>A denial of service is possible from excessive resource consumption in net/http and mime/multipart. ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24534</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.8, 1.20.3</td>
+                    <td>HTTP and MIME header parsing can allocate large amounts of memory, even when parsing small inputs, p...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24536</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.8, 1.20.3</td>
+                    <td>Multipart form parsing can consume large amounts of CPU and memory when processing form inputs conta...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24537</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.8, 1.20.3</td>
+                    <td>Calling any of the Parse functions on Go source code which contains //line directives with very larg...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24539</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.9, 1.20.4</td>
+                    <td>Angle brackets (<>) are not considered dangerous characters when inserted into CSS contexts. Templat...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-29400</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.9, 1.20.4</td>
+                    <td>Templates containing actions in unquoted HTML attributes (e.g. "attr={{.}}") executed with empty inp...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-29403</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.10, 1.20.5</td>
+                    <td>On Unix platforms, the Go runtime does not behave differently when a binary is run with the setuid/s...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-39325</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.10, 1.21.3</td>
+                    <td>A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause exces...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45283</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.11, 1.21.4, 1.20.12, 1.21.5</td>
+                    <td>The filepath package does not recognize paths with a \??\ prefix as special. On Windows, a path begi...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45287</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.0</td>
+                    <td>Before Go 1.20, the RSA based TLS key exchanges used the math/big library, which is not constant tim...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45288</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.9, 1.22.2</td>
+                    <td>An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an exce...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-34156</td>
+                    <td><span class="severity-tag high">HIGH</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.22.7, 1.23.1</td>
+                    <td>Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-48795</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/crypto</td>
+                    <td>v0.0.0-20201002170205-7f63de1d35b0</td>
+                    <td>0.17.0</td>
+                    <td>The SSH transport protocol with certain OpenSSH extensions, found in OpenSSH before 9.6 and other pr...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-31525</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.0.0-20210428140749-89ef3d95e781</td>
+                    <td>net/http in Go before 1.15.12 and 1.16.x before 1.16.4 allows remote attackers to cause a denial of ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41717</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.4.0</td>
+                    <td>An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 serve...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-3978</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.13.0</td>
+                    <td>Text nodes not in the HTML namespace are incorrectly literally rendered, causing text which should b...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-44487</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.17.0</td>
+                    <td>The HTTP/2 protocol allows a denial of service (server resource consumption) because request cancell...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45288</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.23.0</td>
+                    <td>An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an exce...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2025-22870</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.36.0</td>
+                    <td>Matching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname componen...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2025-22872</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/net</td>
+                    <td>v0.0.0-20201224014010-6772e930b67b</td>
+                    <td>0.38.0</td>
+                    <td>The tokenizer incorrectly interprets tags with unquoted attribute values that end with a solidus cha...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-29526</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>golang.org/x/sys</td>
+                    <td>v0.0.0-20210217105451-b926d437f341</td>
+                    <td>0.0.0-20220412211240-33da011f77ad</td>
+                    <td>Go before 1.17.10 and 1.18.x before 1.18.2 has Incorrect Privilege Assignment. When called with a no...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24786</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>google.golang.org/protobuf</td>
+                    <td>v1.25.0</td>
+                    <td>1.33.0</td>
+                    <td>The protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of inval...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-31525</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.12, 1.16.4</td>
+                    <td>net/http in Go before 1.15.12 and 1.16.x before 1.16.4 allows remote attackers to cause a denial of ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-33197</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.13, 1.16.5</td>
+                    <td>In Go before 1.15.13 and 1.16.x before 1.16.5, some configurations of ReverseProxy (from net/http/ht...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-34558</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.14, 1.16.6</td>
+                    <td>The crypto/tls package of Go through 1.16.5 does not properly assert that the type of public key in ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-36221</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.15.15, 1.16.7</td>
+                    <td>Go before 1.15.15 and 1.16.x before 1.16.7 has a race condition that can lead to a net/http/httputil...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2021-44717</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.16.12, 1.17.5</td>
+                    <td>Go before 1.16.12 and 1.17.x before 1.17.5 on UNIX allows write operations to an unintended file or ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-1705</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client in net/http before Go 1.17...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-1962</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Uncontrolled recursion in the Parse functions in go/parser before Go 1.17.12 and Go 1.18.4 allow an ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-29526</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.10, 1.18.2</td>
+                    <td>Go before 1.17.10 and 1.18.x before 1.18.2 has Incorrect Privilege Assignment. When called with a no...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-32148</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.12, 1.18.4</td>
+                    <td>Improper exposure of client IP addresses in net/http before Go 1.17.12 and Go 1.18.4 can be triggere...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-41717</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.18.9, 1.19.4</td>
+                    <td>An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 serve...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-24532</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.7, 1.20.2</td>
+                    <td>The ScalarMult and ScalarBaseMult methods of the P256 Curve may return an incorrect result if called...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-29406</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.11, 1.20.6</td>
+                    <td>The HTTP/1 client does not fully validate the contents of the Host header. A maliciously crafted Hos...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-29409</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.19.12, 1.20.7, 1.21.0-rc.4</td>
+                    <td>Extremely large RSA keys in certificate chains can cause a client/server to expend significant CPU t...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-39318</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.8, 1.21.1</td>
+                    <td>The html/template package does not properly handle HTML-like "" comment tokens, nor hashbang "#!" co...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-39319</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.8, 1.21.1</td>
+                    <td>The html/template package does not apply the proper rules for handling occurrences of "<script", "<!...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-39326</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.12, 1.21.5</td>
+                    <td>A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or respo...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45284</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.20.11, 1.21.4</td>
+                    <td>On Windows, The IsLocal function does not correctly detect reserved device names in some cases. Rese...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45289</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.8, 1.22.1</td>
+                    <td>When following an HTTP redirect to a domain which is not a subdomain match or exact match of the ini...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2023-45290</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.8, 1.22.1</td>
+                    <td>When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24783</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.8, 1.22.1</td>
+                    <td>Verifying a certificate chain which contains a certificate with an unknown public key algorithm will...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24784</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.8, 1.22.1</td>
+                    <td>The ParseAddressList function incorrectly handles comments (text within parentheses) within display ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24785</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.8, 1.22.1</td>
+                    <td>If errors returned from MarshalJSON methods contain user controlled data, they may be used to break ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24789</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.11, 1.22.4</td>
+                    <td>The archive/zip package's handling of certain types of invalid zip files differs from the behavior o...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-24791</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.21.12, 1.22.5</td>
+                    <td>The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an "Expec...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-34155</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.22.7, 1.23.1</td>
+                    <td>Calling any of the Parse functions on Go source code which contains deeply nested literals can cause...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-34158</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.22.7, 1.23.1</td>
+                    <td>Calling Parse on a "// +build" build tag line with deeply nested expressions can cause a panic due t...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-45336</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.22.11, 1.23.5, 1.24.0-rc.2</td>
+                    <td>The HTTP client drops sensitive headers after following a cross-domain redirect. For example, a requ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2024-45341</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.22.11, 1.23.5, 1.24.0-rc.2</td>
+                    <td>A certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name ...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2025-22866</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.22.12, 1.23.6, 1.24.0-rc.3</td>
+                    <td>Due to the usage of a variable time instruction in the assembly implementation of an internal functi...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2025-22871</td>
+                    <td><span class="severity-tag medium">MEDIUM</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.23.8, 1.24.2</td>
+                    <td>The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size li...</td>
+                </tr>
+            
+                <tr>
+                    <td>CVE-2022-30629</td>
+                    <td><span class="severity-tag low">LOW</span></td>
+                    <td>stdlib</td>
+                    <td>1.16.2</td>
+                    <td>1.17.11, 1.18.3</td>
+                    <td>Non-random values for ticket_age_add in session tickets in crypto/tls before Go 1.17.11 and Go 1.18....</td>
+                </tr>
+            
+                </tbody>
+            </table>
+        </body>
+        </html>
+        
