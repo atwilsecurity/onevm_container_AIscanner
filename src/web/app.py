@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 import json
 import os
 import sys
+from datetime import datetime
 
 # Add the project root to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -12,6 +13,7 @@ from src.mcp.client import MCPClient
 from src.ai.claude_client import ClaudeAnalyzer
 from src.kubernetes.scanner import KubernetesScanner
 from src.kubernetes.client import KubernetesClient
+from src.chatbot.bot import SecurityChatbot
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key'  # Required for flash messages
@@ -57,6 +59,14 @@ except Exception as e:
     k8s_available = False
     k8s_client = None
     k8s_scanner = None
+
+try:
+    chatbot = SecurityChatbot()
+    chatbot_available = chatbot.available
+except Exception as e:
+    print(f"Chatbot not available: {str(e)}")
+    chatbot_available = False
+    chatbot = None    
 
 @app.route('/')
 def index():
@@ -200,6 +210,16 @@ def analysis_results(context_id):
         original_context_id = analysis_result['data'].get('original_context_id')
         original_scan = mcp_client.get_context(original_context_id) if original_context_id else None
         
+        # Format the timestamp for better display
+        if 'analyzed_at' in analysis_result['data']:
+            try:
+                # Convert ISO format to datetime object and format
+                dt = datetime.fromisoformat(analysis_result['data']['analyzed_at'].replace('Z', '+00:00'))
+                analysis_result['data']['analyzed_at'] = dt.strftime("%Y-%m-%d %H:%M:%S")
+            except Exception as e:
+                # If formatting fails, keep the original timestamp
+                print(f"Error formatting timestamp: {str(e)}")
+        
         return render_template('analysis.html', 
                               context_id=context_id, 
                               analysis=analysis_result,
@@ -289,6 +309,31 @@ def list_contexts():
     # This would need to be implemented in your MCP client
     # For now, we'll return a simple message
     return jsonify({"error": "Not implemented yet"})
+
+@app.route('/api/chatbot', methods=['POST'])
+def chatbot_response():
+    """API endpoint for chatbot responses"""
+    if not chatbot_available:
+        return jsonify({"error": "Chatbot is not available"}), 503
+    
+    try:
+        data = request.json
+        message = data.get('message', '')
+        conversation_history = data.get('conversation', [])
+        
+        if not message:
+            return jsonify({"error": "No message provided"}), 400
+        
+        response = chatbot.get_response(message, conversation_history)
+        
+        return jsonify({
+            "response": response,
+            "timestamp": datetime.now().isoformat()
+        })
+    
+    except Exception as e:
+        app.logger.error(f"Error in chatbot: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

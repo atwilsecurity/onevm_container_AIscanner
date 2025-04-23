@@ -192,8 +192,34 @@ button {
 
 .scan-info {
     margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e9ecef;
+    padding: 1.2rem 1.5rem;
+    border-radius: 8px;
+    background-color: #f1f8ff;
+    border-left: 4px solid #007bff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.scan-info p {
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+}
+
+.scan-info p strong {
+    color: #343a40;
+    display: inline-block;
+    min-width: 100px;
+}
+
+.scan-info a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.scan-info a:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
 
 .summary-container {
@@ -362,17 +388,41 @@ button {
 /* Analysis styling */
 .analysis-container {
     background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.analysis-container h1 {
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-weight: 700;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
 }
 
 .summary-section {
     background-color: #f8f9fa;
-    padding: 1.5rem;
+    padding: 1.8rem;
     border-radius: 8px;
     margin: 1.5rem 0;
     border-left: 4px solid #17a2b8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.summary-section h2 {
+    color: #17a2b8;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.summary-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #495057;
 }
 
 .detailed-analysis {
@@ -386,6 +436,12 @@ button {
     margin-bottom: 1.5rem;
     border: 1px solid #e9ecef;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.analysis-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .analysis-item h3 {
@@ -393,18 +449,56 @@ button {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+}
+
+.analysis-item p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.analysis-item p strong {
+    color: #343a40;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 0.5rem;
 }
 
 .recommendations, .best-practices {
-    margin: 2rem 0;
+    margin: 2.5rem 0;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.recommendations h2, .best-practices h2 {
+    color: #343a40;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .recommendations ul, .best-practices ul {
     padding-left: 1.5rem;
+    list-style-type: none;
 }
 
 .recommendations li, .best-practices li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.8rem;
+    line-height: 1.6;
+}
+
+.recommendations li:before, .best-practices li:before {
+    content: "✓";
+    color: #28a745;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
 }
 
 .raw-analysis pre {
@@ -414,6 +508,12 @@ button {
     overflow-x: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-height: 600px;
+    overflow-y: auto;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .btn-analyze {
@@ -752,4 +852,157 @@ footer {
 
 .error-text {
     color: #d63031;
+}
+/* Add to src/web/static/css/style.css */
+
+/* Chatbot styles */
+.chatbot-launcher {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chatbot-launcher button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.chatbot-launcher button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.chatbot-header {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.chatbot-toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+}
+
+.chatbot-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #e6f2ff;
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    background-color: #f1f1f1;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+}
+
+.thinking {
+    opacity: 0.7;
+}
+
+.chatbot-input {
+    display: flex;
+    margin-top: 15px;
+}
+
+.chatbot-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chatbot-input button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.chatbot-input button:hover {
+    background-color: #0056b3;
+}
+
+.chatbot-container.minimized {
+    height: 60px;
+    width: 250px;
+}
+
+.chatbot-container.minimized .chatbot-body {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .chatbot-container {
+        width: 90%;
+        height: 70%;
+        bottom: 10px;
+        right: 5%;
+        left: 5%;
+    }
 }
