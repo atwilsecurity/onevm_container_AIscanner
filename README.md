@@ -3,8 +3,10 @@
   <img src="https://cdn.prod.website-files.com/64e2669792befecb2c6bd088/65ea1483c5e3f90ff5acb460_logo.png" alt="OneVM Logo" width="200"/>
 </p>
 
+
 ## Overview
 
+OneVM includes an intelligent security chatbot assistant that enhances the user experience(NEW)
 OneVM is a comprehensive container security scanning application designed to identify, analyze, and report vulnerabilities in Docker images and Kubernetes environments. Built with Python and Flask, it provides an intuitive web interface for scanning containers and visualizing security issues.
 
 ## Features
@@ -27,6 +29,13 @@ OneVM is a comprehensive container security scanning application designed to ide
 - **Remediation Recommendations**: Get specific actions to address security vulnerabilities
 - **Security Best Practices**: Receive contextual security advice for your containers
 - **Natural Language Explanations**: Technical security information translated into clear explanations
+
+### BOT Features (Claude Powered)
+- **Interactive Help**: Get instant answers to questions about container security and application usage
+- **AI-Powered Responses**: Uses Claude AI for sophisticated, contextual responses to security questions
+- **Security Guidance**: Provides recommendations for addressing vulnerabilities and improving security posture
+- **Container Security Knowledge**: Access expert information about container security best practices
+- **Context-Aware**: Maintains conversation history to provide more coherent assistance
 
 ## Installation
 
@@ -174,3 +183,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Trivy by Aqua Security for vulnerability scanning
 - Anthropic's Claude for AI analysis capabilities
 - Kubernetes for container orchestration
+
