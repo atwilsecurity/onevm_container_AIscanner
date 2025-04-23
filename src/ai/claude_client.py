@@ -71,9 +71,9 @@ class ClaudeAnalyzer:
         )[:10]
         
         # Create a structured message for Claude
-        prompt = f"""I need you to analyze these security vulnerabilities found in the Docker image {image_name}.
+        prompt = f"""I need you to analyze these specific security vulnerabilities found in the Docker image {image_name}.
         
-Here are the top vulnerabilities:
+Here are the top vulnerabilities that need detailed analysis:
 
 """
         
@@ -86,32 +86,34 @@ Here are the top vulnerabilities:
 """
         
         prompt += """
+IMPORTANT: Provide a tailored analysis that addresses these SPECIFIC vulnerabilities (by ID) found in the scan results above. Do not give generic vulnerability descriptions.
+
 Please provide:
-1. A summary of the security risks
-2. Explanation of the most serious vulnerabilities
-3. Recommended actions to mitigate these vulnerabilities
-4. General best practices for container security
+1. A specific summary of the security risks in THIS container
+2. Detailed explanation of each of the listed vulnerabilities above, addressing them by ID
+3. Specific recommended actions to mitigate THESE vulnerabilities
+4. Container security best practices relevant to these findings
 
 Format your response in JSON with the following structure:
 {
-  "summary": "overall summary text",
+  "summary": "overall summary based specifically on the identified vulnerabilities",
   "detailed_analysis": [
     {
-      "id": "vulnerability ID",
-      "explanation": "detailed explanation",
-      "impact": "potential impact",
-      "mitigation": "how to fix"
+      "id": "exact vulnerability ID as shown above",
+      "explanation": "detailed explanation of this specific vulnerability",
+      "impact": "potential impact of this particular vulnerability",
+      "mitigation": "specific instructions to fix this vulnerability"
     },
     ...
   ],
   "recommendations": [
-    "recommendation 1",
-    "recommendation 2",
+    "recommendation 1 relevant to these findings",
+    "recommendation 2 relevant to these findings",
     ...
   ],
   "best_practices": [
-    "practice 1",
-    "practice 2",
+    "practice 1 focused on these types of vulnerabilities",
+    "practice 2 focused on these types of vulnerabilities",
     ...
   ]
 }
@@ -122,7 +124,7 @@ Format your response in JSON with the following structure:
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20240620",
                 max_tokens=4000,
-                system="You are a container security expert. You analyze vulnerabilities in Docker images and provide clear explanations and remediation advice.",
+                system_prompt="You are a container security expert specializing in detailed vulnerability analysis. Analyze only the specific vulnerabilities provided in the input. Provide concrete, practical remediation advice for each vulnerability by ID. Focus on actionable, specific mitigations rather than generic security practices. Include specific commands or configuration changes when possible.",
                 messages=[
                     {"role": "user", "content": prompt}
                 ]
