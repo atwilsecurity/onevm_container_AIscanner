@@ -124,7 +124,7 @@ Format your response in JSON with the following structure:
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20240620",
                 max_tokens=4000,
-                system_prompt="You are a container security expert specializing in detailed vulnerability analysis. Analyze only the specific vulnerabilities provided in the input. Provide concrete, practical remediation advice for each vulnerability by ID. Focus on actionable, specific mitigations rather than generic security practices. Include specific commands or configuration changes when possible.",
+                system="You are a container security expert specializing in detailed vulnerability analysis. Analyze only the specific vulnerabilities provided in the input. Provide concrete, practical remediation advice for each vulnerability by ID. Focus on actionable, specific mitigations rather than generic security practices. Include specific commands or configuration changes when possible.",
                 messages=[
                     {"role": "user", "content": prompt}
                 ]
